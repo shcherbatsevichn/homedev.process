@@ -65,17 +65,35 @@ class homedev_process extends CModule
 		$this->PARTNER_URI = "shcherbatsevich.n.dvl@yandex.by";
 	}
 
+	public function instalDb()
+	{
+		global $DB, $APPLICATION;
+		$this->errors = false;
+
+		if(!$DB->Query("SELECT 'x' FROM homedev_gm", true))
+		{
+			$this->errors = $DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT']."/local/modules/homedev.process/install/db/mysql/install.sql");
+		}
+
+		if($this->errors !== false)
+		{
+			$APPLICATION->ThrowException(implode("", $this->errors));
+			return false;
+		}
+	}
 	public function doInstall()
 	{
 		ModuleManager::registerModule($this->MODULE_ID);
-
 		CopyDirFiles(__DIR__ . "/admin", $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin");
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/homedev.process/install/components",
+        $_SERVER["DOCUMENT_ROOT"]."/local/components", true, true);
+		$this->instalDb();
+		return true;
 	}
 
 	public function doUninstall()
 	{
 		DeleteDirFiles(__DIR__ . "/admin", $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin");
-
 		ModuleManager::unregisterModule($this->MODULE_ID);
 	}
 }

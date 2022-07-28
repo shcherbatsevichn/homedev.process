@@ -1,0 +1,25 @@
+CREATE TABLE `homedev_ich` 
+(
+	`ID` int NOT NULL AUTO_INCREMENT, 
+	`SHOPS_NAME` varchar(255) NOT NULL, 
+	`DATE_CREATE` datetime NOT NULL, 
+	`CHECKS_NUMBER` varchar(255) NOT NULL, 
+	`COUSE` varchar(255) NOT NULL, 
+	`COUSE_DESCRIPTION` varchar(255) NOT NULL, 
+	`COMPLETE` varchar(1) NOT NULL, 
+	PRIMARY KEY(`ID`)
+)
+
+CREATE TABLE `homedev_gm` 
+(
+	`ID` int NOT NULL AUTO_INCREMENT, 
+	`SHOPS_NAME` varchar(255) NOT NULL, 
+	`DATE_CREATE` datetime NOT NULL, 
+	`DEVICE_NAME` varchar(255) NOT NULL, 
+	`BK_NUMBER` varchar(255) NOT NULL, 
+	`SERIAL_NUMBER` varchar(255) NOT NULL, 
+	`SCRATCH_CODE` varchar(255) NOT NULL, 
+	`MALFUNCTION_NAME` varchar(255) NOT NULL, 
+	`COMPLETE` varchar(1) NOT NULL, 
+	PRIMARY KEY(`ID`)
+)

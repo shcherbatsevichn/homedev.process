@@ -12,18 +12,21 @@ Loc::loadMessages(__FILE__);
 use \Exception;
 use Homedev\Process\GModuleController;
 use Homedev\Process\IcheckController;
+use Homedev\Process\ConstantsController;
 
 class TasksController
 {	
 	private $userID; //id текущего пользователя
 	private $managerID; //id менеджера
-	private $gmResponsible = 10; //id ответственного за ГМ
-	private $ichResponsible = 11; // id ответственного за ИЧ
+	private $gmResponsible; //id ответственного за ГМ
+	private $ichResponsible; // id ответственного за ИЧ
 
 	public function __construct($userID)
 	{
 		$this->userID = $userID;
 		$this->managerID = $this->getBitrixUserManager();
+		$this->gmResponsible = ConstantsController::getConstantsValue('GM_RESPOSIBLE_ID');
+		$this->ichResponsible = ConstantsController::getConstantsValue('ICH_RESPOSIBLE_ID');
 	}
 	public function createOpenCloseTask($shopName, $taskType)
 	{
@@ -73,7 +76,7 @@ class TasksController
 		$tableLine = new GModuleController($shopName, $device, $bkNumber, $serialNumber, $scratchCode, $malfunction);
 		$gmId = $tableLine->createLine();
 		$taskTitle = "ГМ №".$gmId; 
-		$taskDesc = "ГМ №".$gmId.': БК №'.$bkNumber." - ".$device." - ".$malfunction.". ".$description."\n"."Серийный номер:".$serialNumber.";\n"."Скретч-код:".$scratchCode.";\n"."НЕ ЗАБУДЬ ДОБАВИТЬ ВИДЕО В КОММЕНТАРИИ!";
+		$taskDesc = "ГМ №".$gmId.': БК №'.$bkNumber." - ".$device." (".$malfunction."). ".$description."\n"."Серийный номер: <b>".$serialNumber."</b>;\n"."Скретч-код: <b>".$scratchCode."</b>;\n"."НЕ ЗАБУДЬ ДОБАВИТЬ ВИДЕО В КОММЕНТАРИИ!";
 		$arrAdd = [
 			"DD"	=> 5,
 			"MM"	=> 0,
