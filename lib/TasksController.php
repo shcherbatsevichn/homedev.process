@@ -11,6 +11,7 @@ Loc::loadMessages(__FILE__);
 
 use \Exception;
 use Homedev\Process\GModuleController;
+use Homedev\Process\IcheckController;
 
 class TasksController
 {	
@@ -55,7 +56,7 @@ class TasksController
 			'CREATED_BY' => $this->managerID, 
 		];
 	
-		$result = \CTaskItem::add($arTaskField, $this->userID);
+		$result = \CTaskItem::add($arTaskField, $this->managerID);
 		$taskId = $result->getId();
 		$taskCheck = \CTaskItem::getInstance($taskId, $this->userID);
 		if($taskType == 'open'){
@@ -72,7 +73,7 @@ class TasksController
 		$tableLine = new GModuleController($shopName, $device, $bkNumber, $serialNumber, $scratchCode, $malfunction);
 		$gmId = $tableLine->createLine();
 		$taskTitle = "ГМ №".$gmId; 
-		$taskDesc = "ГМ №".$gmId.': БК №'.$bkNumber." - ".$device." - ".$malfunction.". ".$description."\n"."Серийный номер:".$serialNumber.";\n"."Скретч-код:".$serialNumber.";\n"."НЕ ЗАБУДЬ ДОБАВИТЬ ВИДЕО В КОММЕНТАРИИ!";
+		$taskDesc = "ГМ №".$gmId.': БК №'.$bkNumber." - ".$device." - ".$malfunction.". ".$description."\n"."Серийный номер:".$serialNumber.";\n"."Скретч-код:".$scratchCode.";\n"."НЕ ЗАБУДЬ ДОБАВИТЬ ВИДЕО В КОММЕНТАРИИ!";
 		$arrAdd = [
 			"DD"	=> 5,
 			"MM"	=> 0,
@@ -85,16 +86,44 @@ class TasksController
 		$arTaskField = [
 			'TITLE' => $taskTitle,
 			'DESCRIPTION' => $taskDesc, 
-			'GROUP_ID' => 1,
+			'GROUP_ID' => 2,
 			'DEADLINE' => date("d.m.Y H:i:s", $stmp),
 			'RESPONSIBLE_ID' => $this->userID, 
 			'CREATED_BY' => $this->managerID, 
-			'AUDITORS' => [$this->gmResponsible],
+			'ACCOMPLICES' => [$this->gmResponsible],
 		];
-		$result = \CTaskItem::add($arTaskField, 1);
+		$result = \CTaskItem::add($arTaskField, $this->managerID);
 	}
 
-	public function getBitrixUserManager() {
+	
+	public function createIchTask($shopName, $checksNumber, $couse, $couseDescription){
+		$tableLine = new IcheckController($shopName, $checksNumber, $couse, $couseDescription);
+		$ichId = $tableLine->createLine();
+		$taskTitle = "ИЧ №".$ichId; 
+		$taskDesc = "ИЧ №".$ichId.': Исправить чек №'.$checksNumber." по причине '".$couse."'. <br> Описание ситуации: ".$couseDescription;
+		$arrAdd = [
+			"DD"	=> 3,
+			"MM"	=> 0,
+			"YYYY"	=> 0,
+			"HH"	=> 0,
+			"MI"	=> 0,
+			"SS"	=> 0,
+		];
+		$stmp = AddToTimeStamp($arrAdd);
+		$arTaskField = [
+			'TITLE' => $taskTitle,
+			'DESCRIPTION' => $taskDesc, 
+			'GROUP_ID' => 3,
+			'DEADLINE' => date("d.m.Y H:i:s", $stmp),
+			'RESPONSIBLE_ID' => $this->userID, 
+			'CREATED_BY' => $this->managerID, 
+			'ACCOMPLICES' => [$this->ichResponsible],
+		];
+		$result = \CTaskItem::add($arTaskField, $this->managerID);
+	}
+
+
+	private function getBitrixUserManager() {
 		
 		$managers = array();
 		$sections = \CIntranetUtils::GetUserDepartments($this->userID);
