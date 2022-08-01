@@ -23,3 +23,11 @@ CREATE TABLE `homedev_gm`
 	`COMPLETE` varchar(1) NOT NULL, 
 	PRIMARY KEY(`ID`)
 )
+
+CREATE TABLE `homedev_shoplist` 
+(
+	`ID` int NOT NULL AUTO_INCREMENT, 
+	`SHOPS_NAME` varchar(255) NOT NULL, 
+	`SHOPS_USER_ID` varchar(255), 
+	PRIMARY KEY(`ID`)
+)

@@ -51,6 +51,12 @@ class GModuleController
 		}
 		return $id;
 	}
+	public static function getAllRows($filter){
+		$result = GModuleTable::GetList([
+			'filter' => $filter
+			])->fetchall();
+		return $result;
+	}
 	public function readLine(){}
 	public function updateLine(){}
 	public function deleteLine(){}

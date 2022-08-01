@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+h1,
+h2,
+h3 {
+    color: #636363;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+p,
+input,
+select,
+option,
+textarea {
+    color: #636363;
+    font-family: 'Montserrat';
+    font-weight: 400;
+}
+
+select,
+option {
+    background-color: white;
+}
+
+label {
+    color: #636363;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.homedev-btn {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.error-message {
+    color: rgb(175, 21, 21);
+    font-size: 20px;
+    font-style: bold;
+}
+
+.homedev-container {
+    overflow: hidden;
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+.homedev-button-section {
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    width: 45%;
+}
+
+.homedev-text {
+    margin-left: 20px;
+}
+
+.homedev-black {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    background-color: rgba(1, 1, 1, 0.8);
+    z-index: 100;
+    overflow: auto;
+}
+
+.homedev-black.open {
+    display: block;
+}
+
+.homedev-form {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    position: absolute;
+    display: none;
+    left: 40%;
+    top: 40%;
+    z-index: 200;
+}
+
+.homedev-form.form-gm {
+    top: 10%;
+}
+
+.homedev-form.form-ich {
+    top: 30%;
+}
+
+.homedev-form.open {
+    display: block;
+}
+
+.homedev-formwrapper {
+    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+.homedev-row {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.homedev-lable {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.homedev-input {
+    border: 1px solid #b3b3b3;
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.homedev-textarea {
+    border: 1px solid #b3b3b3;
+    width: 400px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.homedev-text-alert {
+    color: red;
+    text-decoration: dashed;
+}
